@@ -1,2 +1,2 @@
 # python-clipbord-project
-this is the excersise project
+this are excersise projects
