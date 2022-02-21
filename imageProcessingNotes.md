@@ -81,6 +81,39 @@ cv2.waitKey(0)
 #destroy All the windows
 cv2.destroyAllWindows()
 ```
+### 1.4 Image types and Colors
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("butterfly.jpg",1)
+
+cv2.imshow("Image_Tab",img)
+cv2.moveWindow("Image_Tab",0,0)
+
+height, width, channels = img.shape
+b,g,r  = cv2.split(img)
+
+#concatenate method concatenate the provided arrays based on axis. 
+# if axis = 1, then concatenate along width
+# if axis = 0, then concatenate along height
+rgb_split = np.concatenate((r,g,b),axis=1)
+# rgb_split = np.empty([height,width*3,channels],'uint8')
+# rgb_split[:,0:width] = cv2.merge([b,b,b])
+# rgb_split[:,width:width*2] = cv2.merge([g,g,g])
+# rgb_split[:,width*2:width*3] = cv2.merge([r,r,r])
+
+cv2.imshow("channles",rgb_split)
+cv2.moveWindow("channles",0,height)
+
+#hsv space
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+h,s,v = cv2.split(hsv)
+hsv_split = np.concatenate((h,s,v),axis=1)
+cv2.imshow("hsv split channels", hsv_split)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
   
  
 
