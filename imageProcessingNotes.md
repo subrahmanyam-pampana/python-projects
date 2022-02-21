@@ -11,8 +11,8 @@
   import cv2
   cv2.__version__
   ```
-## BASICS OF OPEN CV(Computer vision)
-### Reading and Writing the Image
+## 1.BASICS OF OPEN CV(Computer vision)
+### 1.1 Reading and Writing the Image
 ```
 import numpy as np
 import cv2
@@ -32,7 +32,20 @@ cv2.imshow("my Image Window",img)
 #below method takes one param. 1. number of milliseconds to wait before closing the window.
 #if we pass Zero, it will wait untill the user press any Key and close window
 cv2.waitKey(0)
+
+#writing the image to current folder
+#below method takes two params. 1. new image name.<valid image format> 2. image byte code
+#Note: below code convert the input png image to jpeg image. size of the both images different
+cv2.imwrite("newImage.jpg",img)
 ```
+### 1.2 Access and Understand Pixel Data
+- Image Data is stored as N Dimension Array Contains Rows, Columns 
+- Each pixel is ranked with `RGB` color range arrays. Ex: [[255,2555,255],[255,2555,255],[255,2555,255]]
+- Important methods
+    *  `img.shape` gives `(Rows,columns,num_channels)`
+    *  `img.dtype` gives `dtype('uint8')`.unsigned integer of value 8. Which means there are maximum of 2 power 8 values in each pixel. i.e 0 - 255
+
+
 
 
 
