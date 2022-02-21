@@ -3,7 +3,8 @@
 1. First install `pipwin` if it not installed already. it is the offcial installer for installing `numpy` or any other packeages from unofficial location [unoffcila py libs](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
 2. For installing pipwin use `pip install pipwin`
 3. After installing pipwin install numpy library using `pipwin install numpy`. it Installs the latest version of numpy compatble [numpy lib](https://download.lfd.uci.edu/pythonlibs/x6hvwk7i/numpy-1.22.2+mkl-cp310-cp310-win_amd64.whl) with currect version of python.
-4. For testing the installed packages, run the below commands in cmd promt one by one. if packages correctly installed, it will return version
+4. Install Open cv library by running `pipwin install opencv-python`. or download it from [open cv](https://download.lfd.uci.edu/pythonlibs/x6hvwk7i/opencv_python-4.5.5+mkl-cp310-cp310-win_amd64.whl)
+5. For testing the installed packages, run the below commands in cmd promt one by one. if packages correctly installed, it will return version
   ```
   import numpy
   numpy.__version__
@@ -48,6 +49,32 @@ cv2.imwrite("newImage.jpg",img)
 - We can also use list slising to Access the Image Pixels
   * For accessing the First channel use `myImage[:,:,0]`
   * For accessing any pixes use `myImage[Row,col]` Ex: `myImage[12,15]`
+### 1.3 Data Types and Structes
+```
+#creating different Images with numpy arrays
+import numpy as np
+import cv2
+#below zeros method of numpy create an array of width 150, height 200 and 1 channel
+#zeros method takes two parameter 1. [width,height,num_channels] 2. dtype
+black = np.zeros([150,200,1],'uint8')
+cv2.imshow("Black",black)
+
+#Show ones image, it almost like black image bcz its maximum value is 255, but we filled the array with all 1's
+ones = np.ones([150,200,3],'uint8')
+cv2.imshow("One",ones)
+
+#Showing white image
+white  = np.ones([150,200,3],'uint16')
+#assigning all the values in an array white with maximum value of 'uint16' i.e 65535
+white *= (2**16-1)
+cv2.imshow("White",white)
+
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+  
+ 
 
 
 
