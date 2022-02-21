@@ -18,7 +18,8 @@
 import numpy as np
 import cv2
 #read the image
-img = cv2.imread("myImagePath.png")
+#below method takes two parameters. 1. image path, 2. color desity, 1 means full original color, 0 means black and white
+img = cv2.imread("myImagePath.png",1)
 
 #namaed window for showing the image
 #belowe method takes 2 params, 1. name of the window 2. behaviour of the window. 
