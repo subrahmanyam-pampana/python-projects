@@ -41,7 +41,8 @@ cv2.imwrite("newImage.jpg",img)
 ```
 ### 1.2 Access and Understand Pixel Data
 - Image Data is stored as N Dimension Array Contains Rows, Columns 
-- Each pixel is ranked with `RGB` color range arrays. Ex: [255,2555,255]
+- Each pixel is ranked with `BGR` color range arrays. Ex: [255,2555,255]
+- Pixels follows BGR format
 - Important Parameters
     *  `img.shape` gives `(Rows,columns,num_channels)`
     *  `img.dtype` gives `dtype('uint8')`.unsigned integer of value 8. Which means there are maximum of 2 power 8 values in each pixel. i.e 0 - 255
@@ -69,8 +70,14 @@ white  = np.ones([150,200,3],'uint16')
 white *= (2**16-1)
 cv2.imshow("White",white)
 
+#Show Blue color Image
+color = ones.copy()
+color[:,:] = (255,0,0)
+cv2.imshow("Blue",color)
 
 cv2.waitKey(0)
+
+#destroy All the windows
 cv2.destroyAllWindows()
 ```
   
