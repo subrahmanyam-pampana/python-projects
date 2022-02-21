@@ -114,7 +114,10 @@ cv2.imshow("hsv split channels", hsv_split)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
-### Pixel manupulation and Filtering 
+### 1.5 Pixel manupulation and Filtering 
+Note:
+- jpg images does not supports the alpha channel.Event when we export image as jpg having 4 channels, it again fall back to 3 channels
+-  only png images support it.
 ```
 import numpy as np
 import cv2
@@ -132,6 +135,9 @@ r = img[:,:,2]
 rgba = cv2.merge((b,g,r,g)) #here aplha value passed as green, which means non green parts of the image are become transparent
 cv2.imwrite("rgba.png",rgba)
 ```
+### 1.6
+  
+  
   
  
 
