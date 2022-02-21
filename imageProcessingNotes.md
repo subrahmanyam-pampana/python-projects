@@ -40,10 +40,14 @@ cv2.imwrite("newImage.jpg",img)
 ```
 ### 1.2 Access and Understand Pixel Data
 - Image Data is stored as N Dimension Array Contains Rows, Columns 
-- Each pixel is ranked with `RGB` color range arrays. Ex: [[255,2555,255],[255,2555,255],[255,2555,255]]
-- Important methods
+- Each pixel is ranked with `RGB` color range arrays. Ex: [255,2555,255]
+- Important Parameters
     *  `img.shape` gives `(Rows,columns,num_channels)`
     *  `img.dtype` gives `dtype('uint8')`.unsigned integer of value 8. Which means there are maximum of 2 power 8 values in each pixel. i.e 0 - 255
+    *  `img.size` gives `total number of pixels`
+- We can also use list slising to Access the Image Pixels
+  * For accessing the First channel use `myImage[:,:,0]`
+  * For accessing any pixes use `myImage[Row,col]` Ex: `myImage[12,15]`
 
 
 
