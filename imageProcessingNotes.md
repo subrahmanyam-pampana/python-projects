@@ -114,6 +114,24 @@ cv2.imshow("hsv split channels", hsv_split)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
+### Pixel manupulation and Filtering 
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("butterfly.jpg",1)
+
+gray = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
+cv2.imwrite("gray.jpg",gray)
+# extract the each channel, we can also use b,g,r = cv2.split(img);
+# but below is the fast and efficent way of extracting the channels
+b = img[:,:,0]
+g = img[:,:,1]
+r = img[:,:,2]
+
+rgba = cv2.merge((b,g,r,g)) #here aplha value passed as green, which means non green parts of the image are become transparent
+cv2.imwrite("rgba.png",rgba)
+```
   
  
 
