@@ -4,6 +4,6 @@ downlaod this file `numpy‑1.22.2+mkl‑cp38‑cp38‑win32.whl`
 
 1. this first line
    -testing list
-2. sedcound line
-   -testing
+   -tesing2
+
 
