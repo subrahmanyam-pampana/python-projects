@@ -276,7 +276,50 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 ```
+### 1.1 White Board App
+- press `b` to change color to Blue
+- press `g` to change color to green
+- press `c` to clear the screen
+- left click and hold to write
+```
+import numpy as np
+import cv2
+from pyparsing import col
 
+canvas = np.ones((500,500,3),'uint8')*255
+pressed = False
+
+#circle Parameters
+radius = 3
+color = (0,255,0) #green color
+line_width = -1 # -1 for filling the circle
+def click(event,x,y,flags,param):
+    global point,color,canvas,pressed
+    if event == cv2.EVENT_LBUTTONDOWN:
+        pressed = True
+    elif event == cv2.EVENT_MOUSEMOVE and pressed==True:
+        point = (x,y)
+        cv2.circle(canvas,point,radius,color,line_width) 
+    elif event == cv2.EVENT_LBUTTONUP:
+        pressed = False
+
+
+cv2.namedWindow("Canvas")
+cv2.setMouseCallback("Canvas",click)
+
+while True:
+    cv2.imshow("Canvas",canvas)
+    ch = cv2.waitKey(1) #wait 1 milli sec
+    if ch & 0xFF == ord('q'):
+        break
+    elif ch & 0xFF == ord('b'):
+        color = (255,0,0)
+    elif ch & 0xFF == ord('g'):  
+         color = (0,255,0)
+    elif  ch & 0xFF == ord('c'):   
+        canvas = np.ones((500,500,3),'uint8')*255 
+cv2.destroyAllWindows()
+```
 
 
 
