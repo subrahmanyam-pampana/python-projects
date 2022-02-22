@@ -181,7 +181,49 @@ cv2.imshow("Erode Image",erodeImg)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
- 
+ ### 1.7 Scale and Rotate Image
+ #### Scale Image code
+ ```
+ from configparser import Interpolation
+import numpy as np
+import cv2
+
+img = cv2.imread("butterfly.jpg",1)
+
+cv2.imshow("Original_image",img)
+height,width,channels = img.shape
+
+#scaling the Image
+#half image without disturbing the original image
+half_img = cv2.resize(img,(0,0),fx=0.5,fy=0.5)
+stretch_img = cv2.resize(img,(600,600))
+stretch_img_near = cv2.resize(img,(600,600),interpolation=cv2.INTER_NEAREST)
+cv2.imshow("half image",half_img)
+cv2.imshow("stretch_img",stretch_img)
+cv2.imshow("stretch_img_near",stretch_img_near)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+ ```
+ #### Rotate Image Code
+ - Capital letters are user to represent the Matrix
+ - `cv2.warpAffine(actual_image, rotationMatrix, (width,height))` method applies Matrix transformation on actual image
+ ```
+import numpy as np
+import cv2
+
+img = cv2.imread("butterfly.jpg",1)
+
+cv2.imshow("Original_image",img)
+height,width,channels = img.shape
+
+M = cv2.getRotationMatrix2D((width//2,height//2),-90,1) #(possition,degrees,1)
+rotated_img = cv2.warpAffine(img,M,(width,height)) #(actual_image, rotationMatrix, (width,height))
+
+cv2.imshow("rotatedImage",rotated_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+ ```
 
 
 
