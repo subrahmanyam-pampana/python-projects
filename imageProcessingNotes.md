@@ -135,8 +135,29 @@ r = img[:,:,2]
 rgba = cv2.merge((b,g,r,g)) #here aplha value passed as green, which means non green parts of the image are become transparent
 cv2.imwrite("rgba.png",rgba)
 ```
-### 1.6
-  
+### 1.6 Gaussian Blur, Dilation and Erosion
+  -  These operations help reduce noise or unwanted variances of an image or threshold. The goal is to make the image easier to work with. 
+  -  **The Gaussian Blur** filter smooths an image by averaging pixel values with its neighbors. It's called a Gaussian Blur because the average has a Gaussian falloff effect. In other words, pixels that are closer to the target pixel have a higher impact with the average than pixels that are far away. This is how the smoothing works. It is often used as a decent way to smooth out noise in an image as a precursor to other processing. 
+     -  In this method, instead of a box filter, a Gaussian kernel is used. It is done with the function, `cv2.GaussianBlur()`. We should specify the width and height of the kernel which should be **positive and odd**. We also should specify the standard deviation in the X and Y directions, sigmaX and sigmaY respectively. If only sigmaX is specified, sigmaY is taken as the same as sigmaX. If both are given as zeros, they are calculated from the kernel size. Gaussian blurring is highly effective in removing Gaussian noise from an image.
+     - `blur = cv.GaussianBlur(img,(sigmaX,sigmaY),0)`
+ ```
+import numpy as np
+import cv2
+
+img = cv2.imread("butterfly.jpg",1)
+
+cv2.imshow("Original_image",img)
+cv2.moveWindow("Original_image",1,1)
+height,width,channels = img.shape
+
+blurImg = cv2.GaussianBlur(img,(5,55),0)
+
+cv2.imshow("Blur_Image",blurImg)
+cv2.moveWindow("Blur_Image",1,height)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
   
   
  
