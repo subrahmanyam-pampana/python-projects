@@ -45,7 +45,7 @@ cv2.imwrite("newImage.jpg",img)
 - Each pixel is ranked with `BGR` color range arrays. Ex: [255,2555,255]
 - Pixels follows BGR format
 - Important Parameters
-    *  `img.shape` gives `(Rows,columns,num_channels)`
+    *  `img.shape` gives `(length_Rows,length_columns,num_channels)`
     *  `img.dtype` gives `dtype('uint8')`.unsigned integer of value 8. Which means there are maximum of 2 power 8 values in each pixel. i.e 0 - 255
     *  `img.size` gives `total number of pixels`
 - We can also use list slising to Access the Image Pixels
