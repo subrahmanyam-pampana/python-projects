@@ -158,8 +158,29 @@ cv2.moveWindow("Blur_Image",1,height)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
-  
-  
+- **Dilation and Erosion:** Dilation adds pixels to the boundaries of objects in an image, while erosion removes pixels on object boundaries. The number of pixels added or removed from the objects in an image depends on the size and shape of the structuring element used to process the image.
+- `Dilation:` The value of the output pixel is the `maximum value` of all pixels in the neighborhood. In a binary image, a pixel is set to 1 if any of the neighboring pixels have the value 1. Morphological dilation makes objects more visible and fills in small holes in objects.
+- `Erosion:` The value of the output pixel is the `minimum value` of all pixels in the neighborhood. In a binary image, a pixel is set to 0 if any of the neighboring pixels have the value 0. Morphological erosion removes islands and small objects so that only substantive objects remain. [to know more click here](https://www.mathworks.com/help/images/morphological-dilation-and-erosion.html#:~:text=Dilation%20adds%20pixels%20to%20the,used%20to%20process%20the%20image) 
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("map.jpg",1)
+
+cv2.imshow("Original_image",img)
+cv2.moveWindow("Original_image",1,1)
+height,width,channels = img.shape
+
+kernel = np.ones((5,5),'uint8')
+
+dilateImg = cv2.dilate(img,kernel,iterations=1)
+erodeImg = cv2.erode(img,kernel,iterations=1)
+
+cv2.imshow("Dilate Image",dilateImg)
+cv2.imshow("Erode Image",erodeImg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
  
 
 
