@@ -226,7 +226,56 @@ cv2.imshow("rotatedImage",rotated_img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
  ```
+ ### 1.8 Video Inputs
+`cv2.VideoCapture(0)` method used to capture the Video Input.
+ ```
+import numpy as np
+import cv2
+cap = cv2.VideoCapture(0)
+while True:
+    ret,frame = cap.read()
+    frame = cv2.resize(frame,(0,0),fx=0.5,fy=0.5)
+    cv2.imshow("Frame",frame)
+    ch = cv2.waitKey(1) #wait 1 milli sec
+    if ch & 0xFF == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
+ ```
+### 1.9 Draw Circle On the Video at Mouse Click On the video
+- `cv2.circle(frame,point,radius,color,line_width)` method Draws the circle on the Defined window
+- `cv2.setMouseCallback("Frame",click)` method to register the click event to Frame. here click is the call back function
+```
+import numpy as np
+import cv2
 
+cap = cv2.VideoCapture(0)
+
+#circle Parameters
+radius = 50
+color = (0,255,0)
+line_width = 1
+point = (100,100)
+
+def click(event,x,y,flags,param):
+    global point
+    if event == cv2.EVENT_LBUTTONDOWN:
+        point = (x,y)
+
+cv2.namedWindow("Frame")
+cv2.setMouseCallback("Frame",click)
+
+while True:
+    ret,frame = cap.read()
+    frame = cv2.resize(frame,(0,0),fx=0.5,fy=0.5)
+    cv2.circle(frame,point,radius,color,line_width)
+    cv2.imshow("Frame",frame)
+    ch = cv2.waitKey(1) #wait 1 milli sec
+    if ch & 0xFF == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
+```
 
 
 
