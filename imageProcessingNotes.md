@@ -137,8 +137,9 @@ cv2.imwrite("rgba.png",rgba)
 ```
 ### 1.6 Gaussian Blur, Dilation and Erosion
   -  These operations help reduce noise or unwanted variances of an image or threshold. The goal is to make the image easier to work with. 
-  -  **The Gaussian Blur** filter smooths an image by averaging pixel values with its neighbors. It's called a Gaussian Blur because the average has a Gaussian falloff effect. In other words, pixels that are closer to the target pixel have a higher impact with the average than pixels that are far away. This is how the smoothing works. It is often used as a decent way to smooth out noise in an image as a precursor to other processing. 
-     -  In this method, instead of a box filter, a Gaussian kernel is used. It is done with the function, `cv2.GaussianBlur()`. We should specify the width and height of the kernel which should be **positive and odd**. We also should specify the standard deviation in the X and Y directions, sigmaX and sigmaY respectively. If only sigmaX is specified, sigmaY is taken as the same as sigmaX. If both are given as zeros, they are calculated from the kernel size. Gaussian blurring is highly effective in removing Gaussian noise from an image.
+#### The Gaussian Blur
+this filter smooths an image by averaging pixel values with its neighbors. It's called a Gaussian Blur because the average has a Gaussian falloff effect. In other words, pixels that are closer to the target pixel have a higher impact with the average than pixels that are far away. This is how the smoothing works. It is often used as a decent way to smooth out noise in an image as a precursor to other processing. 
+-  In this method, instead of a box filter, a Gaussian kernel is used. It is done with the function, `cv2.GaussianBlur()`. We should specify the width and height of the kernel which should be **positive and odd**. We also should specify the standard deviation in the X and Y directions, sigmaX and sigmaY respectively. If only sigmaX is specified, sigmaY is taken as the same as sigmaX. If both are given as zeros, they are calculated from the kernel size. Gaussian blurring is highly effective in removing Gaussian noise from an image.
      - `blur = cv.GaussianBlur(img,(sigmaX,sigmaY),0)`
  ```
 import numpy as np
@@ -158,7 +159,8 @@ cv2.moveWindow("Blur_Image",1,height)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
-- **Dilation and Erosion:** Dilation adds pixels to the boundaries of objects in an image, while erosion removes pixels on object boundaries. The number of pixels added or removed from the objects in an image depends on the size and shape of the structuring element used to process the image.
+#### Dilation and Erosion:
+Dilation adds pixels to the boundaries of objects in an image, while erosion removes pixels on object boundaries. The number of pixels added or removed from the objects in an image depends on the size and shape of the structuring element used to process the image.
 - `Dilation:` The value of the output pixel is the `maximum value` of all pixels in the neighborhood. In a binary image, a pixel is set to 1 if any of the neighboring pixels have the value 1. Morphological dilation makes objects more visible and fills in small holes in objects.
 - `Erosion:` The value of the output pixel is the `minimum value` of all pixels in the neighborhood. In a binary image, a pixel is set to 0 if any of the neighboring pixels have the value 0. Morphological erosion removes islands and small objects so that only substantive objects remain. [to know more click here](https://www.mathworks.com/help/images/morphological-dilation-and-erosion.html#:~:text=Dilation%20adds%20pixels%20to%20the,used%20to%20process%20the%20image) 
 ```
