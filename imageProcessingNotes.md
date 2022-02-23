@@ -334,6 +334,60 @@ cv2.destroyAllWindows()
 -  In the top example on this slide, we can see that the binary threshold applied, looks at every pixel in the image on the left, to see if the value is greater than or equal to **128**. If it is, it is assigned the value of one. Anything less than that is assigned the value of zero. 
 -  On the bottom example, the binary threshold is based around the value of 64. Therefore, everything that has a value of **64** on the left hand image, is assigned a one. This is a very simple example of segmentation.
 
+### 2.2 Simple Treshoulding code
+```
+import numpy as np
+import cv2
+
+#black and white image
+bwImg = cv2.imread("butterfly.jpg",0)
+
+cv2.imshow("Original Image",bwImg)
+
+height,width = bwImg.shape[0:2]
+
+binaryImg = np.zeros([height,width,1],'uint8')
+threshold = 85
+#Treshold method, Bruteforce approach
+for row in range(0,height):
+    for col in range(0,width):
+        if bwImg[row][col]>= threshold:
+            binaryImg[row][col] = 255            
+cv2.imshow("Treshold image", binaryImg)
+
+#open cv optimized method for treshoulding
+rect, threshImg = cv2.threshold(bwImg,threshold,255,cv2.THRESH_BINARY)
+cv2.imshow("Open cv Treshold image", threshImg)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+### 2.4 Adaptive Thresholding
+- Simple Thresholding won't work correctly in uneven lightining condition
+- unlinke Simple threshold which takes fixed threshold value, adaptive thresholding is applied based on calculated neighborhood threshold value
+- `adapt_tresh = cv2.adaptiveThreshold(bwImg,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,115,1)` 
+```
+from sqlite3 import adapt
+import numpy as np
+import cv2
+
+#black and white image
+bwImg = cv2.imread("butterfly.jpg",0)
+cv2.imshow("Original Image",bwImg)
+
+threshold = 85
+
+#open cv optimized method for treshoulding
+rect, threshImg = cv2.threshold(bwImg,threshold,255,cv2.THRESH_BINARY)
+cv2.imshow("Treshold Basic", threshImg)
+
+#Adaptive Threshold method
+adapt_tresh = cv2.adaptiveThreshold(bwImg,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,115,1)
+cv2.imshow("Adaptive Treshold", adapt_tresh)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
 
 
 
