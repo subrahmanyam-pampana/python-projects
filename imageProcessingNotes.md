@@ -454,6 +454,50 @@ cv2.destroyAllWindows()
 **Result**
 ![image](https://user-images.githubusercontent.com/79074273/155279662-41b93460-f5a6-4824-b731-713b378f8d17.png)
 
+#### 2.6.3 Finding Area, perimeter, center, and curvature of Contours
+- `area = cv2.contourArea(single_contour)` method return the area of the contour
+- `perimeter = cv2.arcLength(single_contour,closed_open?)` method return the perimenter of the contour. here `closed_open` is `boolean` value. `True` indicates the `Closed contour`
+- center can be found by using moments
+```
+M = cv2.moments(single_contour)
+cx = int( M['m10']/M['m00'])
+cy = int( M['m01']/M['m00'])
+```
+- `cv2.circle(img, (cx,cy),radius,color,thickness)` method used to draw the circle. 
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("objects.png",1)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+tresh = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,115,1)
+
+contours,hierarchy = cv2.findContours(tresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+
+img2  = img.copy()
+index,color,thickness = -1,[111,111,111],4
+
+objects = np.zeros([img.shape[0],img.shape[1],3],'uint8')
+
+for i in range(1,len(contours)):
+  c = contours[i]
+  color = [x+34 for x in color]
+  cv2.drawContours(objects,[c],index,color,-1)
+
+  perimeter = cv2.arcLength(c,True)
+  area = cv2.contourArea(c)
+
+  M = cv2.moments(c)
+  if not (M['m10']<1 or M['m01']<1 or M['m00']<1):
+    cx,cy = int( M['m10']//M['m00']), int(M['m01']//M['m00']) 
+    cv2.circle(objects,(cx,cy),4,(0,0,255),-1)
+
+cv2.imshow("Original Image",img)
+cv2.imshow("contour Image",objects)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
 
 
 
