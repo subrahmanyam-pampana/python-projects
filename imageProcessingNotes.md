@@ -417,8 +417,41 @@ cv2.imshow("final image",finalImg)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
+### 2.6 Contours
+#### 2.6.1 Introduction to Contours
+- Once we have segmented out the key areas of an image, the next step is typically to identify the individual objects. But how can we do that? 
+- One powerful way is to use OpenCV's implementation of contours. The goal of contours is to take a binary image and create a tightly fitting closed perimeter around all individual objects in the scene. Each perimeter is called a `contour`. 
+- From a mathematical point of view, it is called an `iterative energy reduction algorithm`. But conceptually, we can think of it as an elastic film that starts on the edges of an image and squeezes in around all the objects and shapes. It creates the boundary around all these objects. 
+![Untitled](https://user-images.githubusercontent.com/79074273/155276604-a4ab9a2f-c73f-4c06-a8f6-2ce64d8154ca.png)
+- One thing to be aware of is the idea of neighborhoods and connectedness. Contours will consider any pixel value above zero as part of the foreground, and any other pixels touching or connected to this pixel will be made to be part of the same object. As the algorithm runs, it tries to reduce the energy or the bounding box around all these objects until it comes to a converged result. 
+- It's important to understand that while this may be an iterative algorithm, we know contours will always converge, so it'll never be stuck in an infinite loop. At the end, you have a list of contours, and each contour is simply a linear list of points which describe the perimeter of a single object. They are always enclosed, a technical term meaning there are no gaps. This means they can be safely drawn back onto an image and completely filled with a new color. 
+- Contours is one of the gateways to determine many other useful properties about a single object within an image, making it a very powerful algorithm at our image processing disposal. It moves from the step of object segmentation, often done by thresholding, into the step of object detection.
 
+#### 2.6.2 Contour Object Detection 
+- `contours,hierarchy = cv2.findContours(thresholdImage,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)` Method gives list of available objects contours and thier heirarchy
+- `cv2.drawContours(original_image,contours_list,index,color,thickness)` method used to draw the contors on the image. for drawing all the contours pass index as -1.
+```
+from sqlite3 import adapt
+import numpy as np
+import cv2
 
+img = cv2.imread("objects.png",1)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+tresh = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,115,1)
+
+contours,hierarchy = cv2.findContours(tresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+
+img2  = img.copy()
+index,color,thickness = -1,(255,0,255),4
+
+cv2.drawContours(img2,contours,index,color,thickness)
+
+cv2.imshow("Original Image",img)
+cv2.imshow("contour Image",img2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
 
 
 
