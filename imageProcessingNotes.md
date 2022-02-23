@@ -431,7 +431,6 @@ cv2.destroyAllWindows()
 - `contours,hierarchy = cv2.findContours(thresholdImage,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)` Method gives list of available objects contours and thier heirarchy
 - `cv2.drawContours(original_image,contours_list,index,color,thickness)` method used to draw the contors on the image. for drawing all the contours pass index as -1.
 ```
-from sqlite3 import adapt
 import numpy as np
 import cv2
 
@@ -452,6 +451,9 @@ cv2.imshow("contour Image",img2)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
+**Result**
+![image](https://user-images.githubusercontent.com/79074273/155279662-41b93460-f5a6-4824-b731-713b378f8d17.png)
+
 
 
 
