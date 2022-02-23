@@ -388,6 +388,35 @@ cv2.imshow("Adaptive Treshold", adapt_tresh)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
+### 2.5 Skin Detection
+- Skin detection can be done by doing `bitwise_and` Operation betwen min_saturation matrix and max_inverted_hue matrix
+- `cv2.bitwise_and(min_sat,max_hue)`
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("faces.jpg",1)
+img = cv2.resize(img,(0,0),fx=0.5,fy=0.5)
+cv2.imshow("Original Image",img)
+
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+h,s,v = hsv[:,:,0],hsv[:,:,1],hsv[:,:,2]
+
+hsv_split = np.concatenate((h,s,v),axis=1)
+# cv2.imshow("hsv split Image",hsv_split)
+
+ret,min_sat = cv2.threshold(s,40,255,cv2.THRESH_BINARY)
+
+ret,max_hue = cv2.threshold(h,35,255,cv2.THRESH_BINARY_INV) #THRESH_BINARY_INV inverts the black and white pixels
+
+conv_img = cv2.bitwise_and(min_sat,max_hue) #convoluted image
+
+finalImg = np.concatenate((min_sat,max_hue,conv_img),axis=1)
+cv2.imshow("final image",finalImg)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
 
 
 
