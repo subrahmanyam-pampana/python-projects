@@ -320,6 +320,21 @@ while True:
         canvas = np.ones((500,500,3),'uint8')*255 
 cv2.destroyAllWindows()
 ```
+## 2.Object Detection
+### 2.1 Segmentation and Binary Images
+-  In this chapter, we are focused on extracting features and objects from images.
+-  An `object` is the focus of our processing. It's the thing that we actually want to get, to do further work.
+-  In order to get the object out of an image, we need to go through a process called `segmentation`. 
+-  `Segmentation` can be done through a variety of different ways but the typical output is a `binary image`. 
+-  A `binary image` is something that has values of zero or one. Essentially, a one indicates the piece of the image that we want to use and a zero is everything else. 
+-  Binary images are a key component of many image processing algorithms. These are pure, non alias black and white images, the results of extracting out only what you need. They act as a mask for the area of the sourced image. 
+-  After creating a binary image from the source, you do a lot when it comes to image processing. 
+-  One of the typical ways to get a binary image, is to use what's called the `thresholding algorithm`. This is a type of segmentation that does a look at the values of the sourced image and a comparison against one's central value to decide whether a single pixel or group of pixels should have values zero or one. 
+   ![image](https://user-images.githubusercontent.com/79074273/155265947-55f3b7cf-2c0d-4984-921d-550ebb7b4884.png)
+-  In the top example on this slide, we can see that the binary threshold applied, looks at every pixel in the image on the left, to see if the value is greater than or equal to **128**. If it is, it is assigned the value of one. Anything less than that is assigned the value of zero. 
+-  On the bottom example, the binary threshold is based around the value of 64. Therefore, everything that has a value of **64** on the left hand image, is assigned a one. This is a very simple example of segmentation.
+
+
 
 
 
