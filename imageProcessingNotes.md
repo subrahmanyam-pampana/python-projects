@@ -611,6 +611,64 @@ Result:
 - `Detection` is often the step prior to recognition. For example, with faces, you first might detect whether a face exists in an image, and a follow-up step might be to understand if that face matches any image in a database. In this case, `features` such as the distance between eyes in an image may be used both for the detection process to see whether or not a face actually exists, but also used as a classifier for the `recognition process` to see which face it specifically matches with. 
 - In this chapter, we will be looking at two specific algorithms, `template matching` for general object recognition, and `hard cascading` as a means for face detection.
 
+### 3.2 Introduction to template matching
+- When it comes to feature detection, template matching is a readily available and straightforward method. The way template matching works, is it searches for a similar pattern between two images. 
+- This is accomplished by taking a reference image, called a `template` and sliding it around the other `comparison image`, taking a difference at every position. The result, is a black and white gray scale image with varying intensities showing how well it matched at each position. 
+- Using a 1D, somewhat modified example, we can see that as we slide our template, which is a triangle, across the screen, it does a comparison in each spot. On the far left there are no matches, so it has a perfectly black value, as it goes to the right and starts to overlap it gets a gray value, indicating a partial match at some of the pixels of the template itself. Then when it perfectly over laps the red triangle in the image, it gives a perfectly white value. As it continues unto the right, it will go back to black indicating that there was a no match. 
+
+![image](https://user-images.githubusercontent.com/79074273/155468344-48ec57a8-27cc-418d-8c30-c9989ab4e055.png)
+
+![image](https://user-images.githubusercontent.com/79074273/155468497-1224043b-2b03-4a84-9b8c-cc3de8c8aa14.png)
+
+
+- Typically, template matching is actually applied in a two-dimensional format but the concept is the same, your source template image will scroll horizontally and vertically across the entire image, taking a difference at each location. The sum result of that difference is put into the pixel value, where a zero sum difference mean the exact same images becomes white and a perfect difference become black. Typically you'll find there's lots of gray in your image as there are always going to be partial matches of some of the pixels in the template versus your image. 
+- The example shown here, we have a yellow ball used as the template. Of course it's only one yellow ball in the actual scene and we can see very clearly in the output that the brightest spot of the image is exactly where we expect the ball to be. However there are partial matches elsewhere in the image most likely where the yellow channels seem to overlap. 
+
+![image](https://user-images.githubusercontent.com/79074273/155468455-4e8c9143-73b9-415b-bac7-a62fbef20c0a.png)
+
+- Typically with template matching you don't actually use an element from the source image yourself but something that is predetermined, such as a face or a known generic object that is expected to be found in the scene. 
+- Given that, it's important to understand a few of the limitations of template matching. 
+  - If your template is `scaled` compared to your Source image then it will `not work` very well
+  - likewise if your template is `rotated` and the template looks different at those different rotations, it may `reduce the effectiveness` of the template matching.
+  - Despite that it's still a very efficient algorithm and can be very useful in some scenarios.
+ 
+ 
+   ![image](https://user-images.githubusercontent.com/79074273/155468672-eb7c56c8-8437-40e5-8d28-2ab2052bc3f3.png)
+   
+#### Template matching Application
+- `result  =  cv2.matchTemplate(img,template,cv2.TM_CCOEFF_NORMED) ` method used to match the template and original image
+- `min_val,max_val,min_loc,max_loc = cv2.minMaxLoc(result)` method gives the min and max values and thier locations
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("players.jpg",0)
+cv2.imshow("original image",img)
+template  = cv2.imread("template.jpg",0)
+cv2.imshow("template",template)
+
+
+result  =  cv2.matchTemplate(img,template,cv2.TM_CCOEFF_NORMED)
+
+min_val,max_val,min_loc,max_loc = cv2.minMaxLoc(result)
+
+print(max_val,max_loc)
+
+cv2.circle(result,max_loc,15,255,4)
+
+cv2.imshow("matching",result)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+result: 
+![image](https://user-images.githubusercontent.com/79074273/155471509-5611a91c-4c35-4391-b164-ff1285611bff.png)
+
+
+   
+   
+   
+
 
 
 
