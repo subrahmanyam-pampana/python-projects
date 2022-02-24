@@ -498,6 +498,33 @@ cv2.imshow("contour Image",objects)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
+### 2.7 Canny Edge detection Algorithm
+- Often we need to pre-process images in order to improve our final result, and in the case of extracting contours from individual objects in an image it is often handy to first detect and accentuate the edges within an image. 
+- Canny Edges is one type of edge detection algorithm that works quite well to help create better separation of objects within the image. Generally speaking, edge detection algorithms look at the rate or speed at which color changes across the image. 
+- Canny Edges is a specific form of that algorithm that creates a single pixel wide line at key high gradient areas in the image. This can help break up the object if there was an overlap in our segmentation process. 
+- Let's take a look at how we can use Canny Edges. Imagine the goal here is to try and segment out each individual tomato. If we're running a threshold, we may run into an issue where the different tomatoes get blobbed together as one single object. 
+- If we put these two images side by side, we can see we have a lot more detail about the edges in the Canny image. You can imagine one way that we could improve our segmentation would be to take a `difference between the Canny and the threshold`. 
+- If you take a look at the tomato on the left hand threshold image, you can see it's joined together with the other tomatoes, but the lines in the Canny image, if you were to make that take away form the threshold image, it would actually break those up into separate objects. This is just one of many use cases of Canny image and in general edge detection algorithms.
+- `canny = cv2.Canny(img,max_thresh,min_thresh)`
+
+![image](https://user-images.githubusercontent.com/79074273/155450449-7c0c94d1-c729-4b8c-a938-b97f085f1881.png)
+
+```
+import numpy as np
+import cv2
+
+img = cv2.imread("tamatoes.jpg",1)
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+cv2.imshow("original image",img)
+ret,thresh = cv2.threshold(hsv[:,:,0],25,255,cv2.THRESH_BINARY_INV)
+cv2.imshow("Thresh image",thresh)
+
+canny = cv2.Canny(img,100,70)
+cv2.imshow("canny image",canny)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
 
 
 
