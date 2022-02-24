@@ -539,6 +539,67 @@ cv2.destroyAllWindows()
 
 ![image](https://user-images.githubusercontent.com/79074273/155452271-cd90a255-55a6-4b47-85ea-00636886b841.png)
 
+### 2.9 Project: Draw all the contour whose area graeter than three thousand of fuzzy image
+- first convert the fuzzy image to gray image
+- blur the noise using `gussian blur`. which heighlights the target area and blurs the uncesseary portion
+- if we apply the `simple threshold filter` on the blur image, it becomes almost white image, so apply the `inverse adaptive threshod filter`.
+- if we apply the `direct adaptive filter`, targetted area becomes **black** and unwanter area becomes **white**. but in order to get the contour of targetted area invert black and white.
+- thats why here applied `inverse adaptive threshod filter` for finding the `contours`
+- filtered the contours which is having area less than three thousand
+
+```
+import numpy as np
+import cv2
+import random
+
+img = cv2.imread("fuzzy.png",1)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+cv2.imshow("Original Image",img)
+
+blur = cv2.GaussianBlur(gray,(3,3),0)
+cv2.imshow("blur Image",blur)
+
+ret, simple_thresh = cv2.threshold(blur,45,255,cv2.THRESH_BINARY)
+cv2.imshow("Simple thresh Image",simple_thresh)
+
+tresh = cv2.adaptiveThreshold(blur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,115,1)
+cv2.imshow("adaptive thresh Image",tresh)
+
+tresh_inv = cv2.adaptiveThreshold(blur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV,115,1)
+cv2.imshow("adaptive thresh inv Image",tresh_inv)
+
+contours,hierarchy = cv2.findContours(tresh_inv,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+contours2,hierarchy2 = cv2.findContours(tresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+
+img2  = np.ones([img.shape[0],img.shape[1],3],'uint8')*255
+img3  = np.ones([img.shape[0],img.shape[1],3],'uint8')*255
+
+index,thickness = -1,-1
+
+for i in range(1,len(contours)):
+  c = contours[i]
+  area = cv2.contourArea(c)
+  color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+  if(area>3000):
+    print("area:",area)
+    cv2.drawContours(img2,[contours[i]],index,color,thickness)
+
+for i in range(1,len(contours2)):
+  c = contours2[i]
+  area = cv2.contourArea(c)
+  color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+  if(area>3000):
+    print("area:",area)
+    cv2.drawContours(img2,[c],index,color,thickness)
+
+cv2.imshow("contour using inv adapive tresh Image",img2)
+cv2.imshow("contour using adapive tresh Image",img3)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+Result: 
+![image](https://user-images.githubusercontent.com/79074273/155465517-989a79c7-c37a-47f8-9d35-02e32d785c95.png)
+
 
 
 
