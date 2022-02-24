@@ -600,6 +600,17 @@ cv2.destroyAllWindows()
 Result: 
 ![image](https://user-images.githubusercontent.com/79074273/155465517-989a79c7-c37a-47f8-9d35-02e32d785c95.png)
 
+## 3. Face and Feature Detection
+### 3.1 Introduction to Face and Feature Detection
+- This chapter is dedicated to feature recognition and face detection. 
+- A feature is any part of an image which can be used to understand an image better and to help perform a needed task. 
+- Features can be visual components of an image or more mathematical properties of the patterns and arrangement of the pixel values. 
+- Good features are invariant to changes like lighting or scaling. For example, the circularity of a segmented object or the ratio of the shortest to the longest axis.
+- Statistical properties of an image or color distribution could also act as features if it fits the problem. Features are identified by classifiers to either detect or recognize objects in an image. 
+- Note to be careful how you use the term detection versus recognition. 
+- `Detection` is often the step prior to recognition. For example, with faces, you first might detect whether a face exists in an image, and a follow-up step might be to understand if that face matches any image in a database. In this case, `features` such as the distance between eyes in an image may be used both for the detection process to see whether or not a face actually exists, but also used as a classifier for the `recognition process` to see which face it specifically matches with. 
+- In this chapter, we will be looking at two specific algorithms, `template matching` for general object recognition, and `hard cascading` as a means for face detection.
+
 
 
 
