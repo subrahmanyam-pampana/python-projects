@@ -664,10 +664,64 @@ cv2.destroyAllWindows()
 result: 
 ![image](https://user-images.githubusercontent.com/79074273/155471509-5611a91c-4c35-4391-b164-ff1285611bff.png)
 
+### 3.3 Face detection
+#### Haar cascading
+- `Haar cascade classifiers`, a form of future-based machine learning. It works by first training a classifier with set of labeled positive and negatives. Or in other words, indicating to the classifier that these are sets of images that have faces and these are sets of images that don't have faces. 
+- This classifier then learns from the set by understanding and extracting features from all the images. 
+- For example, it may naturally learn that the region of the eye is as typically darker than the region of the cheeks below and may use that as one of its thousands of indicators that help understand whether not a particular `region of interest`, or `ROI`, is a face or not. 
+- After the training is completed, and a classifier is defined, we use the classifier in a cascaded manner to run through all the feature checks. This cascade method works like a waterfall, where you apply the fastest and most general checks first in order to quickly rule out areas that are definitely not matching a face without spending too much computational time. As it becomes more refined and goes through more classifiers, it gets more and more sure that the region of interest is actually a face. If it gets through all the cascaded classifiers, it is then marked as a valid face and outputs the bounding blocks. When we run the face detection algorithm and open CV, using the training data, we essentially leverage the already trained information into a cascade classifier which would then output the set of found faces and the regions of interests. 
+- Note however, is not always perfect. And is possible that there will still be false positives and false negatives. Since your training data is rarely ever exactly the same as the applied data, you always are at risk at false negatives or positives. But there are parameters to tweak the classifier to make it more accurate for the particular situation.
+ - `eye_cascade = cv2.CascadeClassifier(path)` method used to form a classifier
+ -  `eyes = eye_cascade.detectMultiScale(gray,scaleFactor=1.02,minNeighbors=20,minSize = (10,10))` method return all the matched objects contains [x,y,w,h] attribues  
+ ```
+import numpy as np
+import cv2
 
-   
-   
-   
+img = cv2.imread("crowd.jpg",1)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+path = "haarcascade_frontalface_default.xml"
+
+face_cascade  = cv2.CascadeClassifier(path)
+
+faces = face_cascade.detectMultiScale(gray,scaleFactor=1.08,minNeighbors=7,minSize=(40,40) )
+
+print(len(faces))
+for (x,y,w,h) in faces:
+  cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),4)
+
+cv2.imshow("faces",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+ ```
+ result:
+ 
+ ![image](https://user-images.githubusercontent.com/79074273/155477112-7d6e6449-5c9c-40f9-a96b-d22705094422.png)
+
+### 3.4 Eye Detection
+ ```
+import numpy as np
+import cv2
+
+
+img = cv2.imread("faces.jpeg",1)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+path = "haarcascade_eye.xml"
+
+eye_cascade = cv2.CascadeClassifier(path)
+
+eyes = eye_cascade.detectMultiScale(gray,scaleFactor=1.02,minNeighbors=20,minSize = (10,10))
+
+for (x,y,w,h) in eyes:
+  cx = int((x+x+w)//2) 
+  cy = int((y+y+h)//2) 
+  radius = int(w//2) 
+
+  cv2.circle(img,(cx,cy),radius,(255,0,0),2)
+
+cv2.imshow("Eyes",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+ ```
 
 
 
