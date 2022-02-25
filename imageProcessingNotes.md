@@ -723,6 +723,37 @@ cv2.imshow("Eyes",img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
  ```
+ ## 4.Other Techniques and Applications
+ - From a computer vision standpoint, we have only scratched the surface with the topics covered so far. Let's take a moment to briefly look at some other algorithms in the field. 
+ - One of those applications we've already seen briefly under the hood is `machine learning`. Specifically, we have been looking at `supervised machine learning`. This is a form of machine-based learning where you train a classifier using already-tagged or identified data. For example, you start a pool of images that is an apple and then a pool of images which are not an apple. The classifier then builds little tests, extracting features from the image. And for each of those tests, it is evaluated of how well it indicates it being one image object or another. 
+ 
+ ![image](https://user-images.githubusercontent.com/79074273/155656680-83e50b66-e7e9-43f4-a5dd-e1c006658942.png)
+ 
+ ![image](https://user-images.githubusercontent.com/79074273/155656731-91aba736-ec05-497a-a266-98d1ff94ac6d.png)
+
+
+   - When it comes to supervised machine learning, an important concept is the `confusion matrix`. The idea is that you can evaluate the effectiveness of your classifier or machine learning data by testing it against a set of images that were not used in the training process. Here you can see that the true positives are the diagonals and the false positives are all the other areas such as when a key is accidentally recognized as an apple. 
+- Another area of computer vision is `text recognition`. I'm sure you could imagine countless applications for the usefulness of OCR text recognition. But to name a few explicitly, you can imagine enabling autonomous vehicles to read signs or being able to help auto-sort and process letters with handwritten addresses. It has a general process of identifying if text is present in an image such as looking for areas of high contrast or certain identified shapes, and then it will often segment and warp and then run a machine-learned process to extract features and do character recognition. Then, there could be further processing done to detect groupings of words, lines, or sentences, and so forth. 
+
+![image](https://user-images.githubusercontent.com/79074273/155656815-0a8a54ba-f264-451e-a43d-6f156bb06ef1.png)
+
+![image](https://user-images.githubusercontent.com/79074273/155656868-c5827769-326e-4a9e-babf-f54db55fc095.png)
+
+ - Another field is `optical flow and object tracking` as well as `scene reconstruction`. Optical flow is a key algorithm and technique for real time applications as well as for other applications that are used to reconstruct a scene. The idea is to calculate and understand the apparent motion within a scene and for all the objects present in an image. This is done by evaluating the change of pixels over time and between frames. 
+ - When it comes to `object tracking`, it is typically faster to track an object between frames than it is to detect an object between frames. 
+  - For example, with face tracking, it may take some computational energy to detect whether or not a face is in the scene. But once you have found a face and you know a little bit about what that particular face looks like, it becomes easier to track it than it would be to detect that face on every frame of a video.
+  ![image](https://user-images.githubusercontent.com/79074273/155656921-ee4453b9-bf89-418a-a901-7a86dc61cc2e.png) 
+- Yet another niche but good example of the use case of computer vision technology is `the reading and creating of QR codes` or scanners in general. 
+  - We can see here a typical flowchart for the QR reading algorithm. You might notice this pattern of starting with `detection`, then `segmentation` and `transformation` to put the image in a more consumable format. 
+  
+  ![image](https://user-images.githubusercontent.com/79074273/155656985-1381d308-063b-4f47-bd7f-49dd402452b4.png)
+  
+  - Detection could be done using something such as a `gradient frequency` or `edge detection map` to filter a range of patterns. Then, the QR code is corner-pin warped into a more parallel format where it then becomes easy to read off the individual bits of the QR code by reading the black versus white areas in a serial manner. 
+  - Then, using an understanding of the format and structure of a QR code, the information is converted and extracted from the image. 
+  - When it comes to generating a QR code, it's essentially the same process but in reverse. QR codes even have the ability to have built-in error or bit checking to help identify when a wrong character was detected due to, for example, bad segmentation or uneven lighting. Again, this is only a short sampling of the possibilities of this library, and new techniques are always being developed. For more use cases and resources, take a look at opencv.org
+  
+  ![image](https://user-images.githubusercontent.com/79074273/155657044-81e4411c-2cb7-42b0-9ca7-41016fe4f20f.png)
+
 
 
 
