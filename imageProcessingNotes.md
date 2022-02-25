@@ -4,7 +4,9 @@
 2. For installing pipwin use `pip install pipwin`
 3. After installing pipwin install numpy library using `pipwin install numpy`. it Installs the latest version of numpy compatble [numpy lib](https://download.lfd.uci.edu/pythonlibs/x6hvwk7i/numpy-1.22.2+mkl-cp310-cp310-win_amd64.whl) with currect version of python.
 4. Install Open cv library by running `pipwin install opencv-python`. or download it from [open cv](https://download.lfd.uci.edu/pythonlibs/x6hvwk7i/opencv_python-4.5.5+mkl-cp310-cp310-win_amd64.whl)
-5. For testing the installed packages, run the below commands in cmd promt one by one. if packages correctly installed, it will return version
+5. Library name `opencv_python-4.5.5+mkl-cp310-cp310-win_amd64.whl`
+
+6. For testing the installed packages, run the below commands in cmd promt one by one. if packages correctly installed, it will return version
   ```
   import numpy
   numpy.__version__
